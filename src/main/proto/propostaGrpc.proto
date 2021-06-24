@@ -1,0 +1,113 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.github.hugovallada";
+option java_outer_classname = "PropostaGrpc";
+option objc_class_prefix = "HLW";
+
+package com.github.hugovallada;
+
+import "google/protobuf/timestamp.proto";
+
+service CreateProposal {
+  rpc create (NewProposalGrpcRequest) returns (NewProposalGrpcResponse) {}
+}
+
+service ProposalStatus{
+   rpc watch(ProposalStatusGrpcRequest) returns (ProposalStatusGrpcResponse){}
+}
+
+service BiometryAssign{
+  rpc assign(BiometryGrpcRequest) returns (BiometryGrpcResponse){}
+}
+
+service CardLock{
+  rpc lock(LockGrpcRequest) returns (LockGrpcResponse){}
+}
+
+service TravelNotice{
+  rpc notificate(TravelNoticeGrpcRequest) returns (TravelNoticeGrpcResponse){}
+}
+
+service AssociateWallet{
+  rpc associate(AssociateWalletGrpcRequest) returns (AssociateWalletGrpcResponse){}
+}
+
+message AssociateWalletGrpcRequest{
+  string cardNumber = 1;
+  string email = 2;
+  string wallet = 3;
+}
+
+message AssociateWalletGrpcResponse{
+  string message = 1;
+}
+
+message TravelNoticeGrpcRequest{
+  string cardNumber = 1;
+  string destination = 2;
+  string returnDate = 3;
+  string clientIp = 4;
+  string userAgent = 5;
+}
+
+message TravelNoticeGrpcResponse{
+  string message = 1;
+}
+
+message LockGrpcRequest {
+  string cardNumber = 1;
+  string clientIp = 2;
+  string userAgent = 3;
+}
+
+message LockGrpcResponse {
+  string message = 1;
+}
+
+message BiometryGrpcRequest{
+  string cardNumber = 1;
+  string fingerPrint = 2;
+}
+
+message BiometryGrpcResponse{
+  string id = 1;
+}
+
+message ProposalStatusGrpcRequest{
+  string id = 1;
+}
+
+message ProposalStatusGrpcResponse{
+  string documet = 1;
+  string creditCard = 2;
+  string name = 3;
+  string email = 4;
+  StatusProposal status = 5;
+}
+
+enum StatusProposal{
+  UNKNOW = 0;
+  ELIGIBLE = 1;
+  NOT_ELIGIBLE =2;
+}
+
+message NewProposalGrpcRequest{
+  string document = 1;
+  string email = 2;
+  string name = 3;
+  AddressGrpc address = 4;
+  string salary = 5;
+}
+
+message NewProposalGrpcResponse{
+  string idProposal = 1;
+}
+
+message AddressGrpc{
+  string city = 1;
+  string state = 2;
+  string number = 3;
+  string cep = 4;
+  string extension = 5;
+}
