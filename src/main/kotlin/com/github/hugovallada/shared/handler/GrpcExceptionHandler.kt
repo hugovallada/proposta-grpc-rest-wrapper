@@ -14,7 +14,7 @@ import javax.inject.Singleton
 @Singleton
 class GrpcExceptionHandler : ExceptionHandler<StatusRuntimeException, HttpResponse<Any>> {
 
-    override fun handle(request: HttpRequest<*>, exception: StatusRuntimeException): HttpResponse<Any>? {
+    override fun handle(request: HttpRequest<*>, exception: StatusRuntimeException): HttpResponse<Any> {
         val status = exception.status.code
         val description = exception.status.description
 
@@ -22,7 +22,6 @@ class GrpcExceptionHandler : ExceptionHandler<StatusRuntimeException, HttpRespon
             Status.ALREADY_EXISTS.code -> Pair(HttpStatus.UNPROCESSABLE_ENTITY, description ?: "Já existe uma chave com esse valor")
             Status.INVALID_ARGUMENT.code -> Pair(HttpStatus.BAD_REQUEST, description ?:"Dados inválidos")
             Status.FAILED_PRECONDITION.code -> Pair(HttpStatus.BAD_REQUEST, description ?:"Erro de pré condição")
-            Status.PERMISSION_DENIED.code -> Pair(HttpStatus.FORBIDDEN, description ?: "Você não tem permissão para acessar")
             Status.NOT_FOUND.code -> Pair(HttpStatus.NOT_FOUND, description ?: "Dado não encontrado")
             else -> Pair(HttpStatus.INTERNAL_SERVER_ERROR, description ?: "Erro desconhecido")
         }

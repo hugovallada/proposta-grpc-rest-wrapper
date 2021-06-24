@@ -13,10 +13,10 @@ import javax.inject.Inject
 class NewProposalController(@Inject private val proposalService: NewProposalService) {
 
     @Post
-    fun newProposal(@Body proposalRequest: NewProposalRequest): Single<MutableHttpResponse<Any>> {
+    fun newProposal(@Body proposalRequest: NewProposalRequest): HttpResponse<Any> {
         proposalService.createProposal(proposalRequest).run {
             val uri = UriBuilder.of("/api/v1/proposals/{id}/details").expand(mutableMapOf(Pair("id", id)))
-            return Single.just(HttpResponse.created<Any>(uri))
+            return HttpResponse.created<NewProposalResponse?>(uri).body(this)
         }
     }
 
