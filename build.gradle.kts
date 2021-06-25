@@ -47,7 +47,7 @@ dependencies {
     testImplementation("org.mockito:mockito-core")
     testImplementation("org.mockito:mockito-inline:3.8.0") // necessária para mockar o Stub
 
-
+    testImplementation("org.junit.jupiter:junit-jupiter:5.7.0")
 
 
 }
@@ -70,6 +70,10 @@ tasks {
         kotlinOptions {
             jvmTarget = "11"
         }
+    }
+
+    test{
+        useJUnitPlatform()
     }
 
 
