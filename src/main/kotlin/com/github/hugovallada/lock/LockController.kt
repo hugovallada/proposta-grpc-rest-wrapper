@@ -1,7 +1,6 @@
 package com.github.hugovallada.lock
 
 import io.micronaut.http.HttpResponse
-import io.micronaut.http.MutableHttpResponse
 import io.micronaut.http.annotation.*
 import javax.inject.Inject
 

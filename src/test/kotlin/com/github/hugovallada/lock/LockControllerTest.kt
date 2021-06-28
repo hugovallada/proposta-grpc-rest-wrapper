@@ -39,7 +39,7 @@ internal class LockControllerTest(private val grpcClient: CardLockGrpc.CardLockB
         with(response){
             status.shouldBe(HttpStatus.CREATED)
             body.shouldNotBeNull()
-            body().message.shouldBe("Credit card $id has been locked")
+            body()!!.message.shouldBe("Credit card $id has been locked")
         }
     }
 
